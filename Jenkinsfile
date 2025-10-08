@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Cloner le code') {
+        stage('Cloner le codee') {
             steps {
                 git url: 'https://github.com/manel016/devops.git'
             }
