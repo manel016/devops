@@ -40,7 +40,7 @@ stage('SonarQube Analysis') {
     steps {
         echo 'Analyse SonarQube...'
         dir('Order') {
-            withSonarQubeEnv('SonarQube') {
+            withSonarQubeEnv('sonarqube') {
                 sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube -Dsonar.projectName="sonarqube"'
             }
         }
