@@ -31,7 +31,9 @@ pipeline {
         stage('Tests unitaires') {
             steps {
                 echo 'Lancement des tests...'
+                dir('Order'){
                 sh 'mvn test'
+                }
             }
         }
 
