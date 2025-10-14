@@ -7,11 +7,8 @@ pipeline {
     }
 
     stages {
-        stage('Clooner le codeee') {
-            steps {
-                git url: 'https://github.com/manel016/devops.git'
-            }
-        }
+        
+        
         stage('git') {
             steps {
                checkout scmGit(branches: [[name: '*/manel']], 
