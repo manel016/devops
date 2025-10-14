@@ -12,6 +12,14 @@ pipeline {
                 git url: 'https://github.com/manel016/devops.git'
             }
         }
+        stage('git') {
+            steps {
+               checkout scmGit(branches: [[name: '*/manel']], 
+                               extensions: [],
+                               userRemoteConfigs: [[credentialsId: 'githubtoken', 
+                                url: 'https://github.com/manel016/devops.git']])
+            }
+        }
 
         stage('Compiler le projet') {
             steps {
