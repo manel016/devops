@@ -36,15 +36,7 @@ pipeline {
                 }
             }
         }
-
-        stage('Analyse statique (optionnel)') {
-            steps {
-                echo 'Analyse statique (ex: Checkstyle, PMD, SonarQube)'
-                // Exemple : sh 'mvn checkstyle:check'
-            }
-        }
-        
- stage('SonarQube Analysis') {
+stage('SonarQube Analysis') {
             steps {
                 echo 'Analyse SonarQube...'
                 dir('Order') {
@@ -58,6 +50,14 @@ pipeline {
                 }
             }
         }
+        stage('Analyse statique (optionnel)') {
+            steps {
+                echo 'Analyse statique (ex: Checkstyle, PMD, SonarQube)'
+                // Exemple : sh 'mvn checkstyle:check'
+            }
+        }
+        
+ 
         
     }
 
