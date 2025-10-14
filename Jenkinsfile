@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Coooompiler le projet') {
+        stage('Compiler le projet') {
             steps {
                 echo 'Compilation avec Maven...'
                 dir('Order') {
