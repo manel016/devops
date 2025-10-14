@@ -43,7 +43,21 @@ pipeline {
                 // Exemple : sh 'mvn checkstyle:check'
             }
         }
-
+        
+ stage('SonarQube Analysis') {
+            steps {
+                echo 'Analyse SonarQube...'
+                dir('Order') {
+                    // Définit le chemin du Maven installé dans Jenkins
+                    def mvnHome = tool name: 'Default Maven', type: 'maven'
+                    
+                    // Exécute l'analyse avec le scanner SonarQube
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${mvnHome}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=sonarqube -Dsonar.projectName='sonarqube'"
+                    }
+                }
+            }
+        }
         
     }
 
