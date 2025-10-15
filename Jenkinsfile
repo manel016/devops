@@ -45,12 +45,14 @@ pipeline {
                 echo 'Analyse SonarQube...'
                 dir('Order') {
                     withSonarQubeEnv('sonarqube') {
+                         dir('Order') {
                         sh """
                             mvn clean verify sonar:sonar \
                             -Dsonar.projectKey=sonarqube \
                             -Dsonar.projectName="sonarqube" \
                             -Dsonar.token=${SONAR_TOKEN}
                         """
+                         }
                     }
                 }
             }
