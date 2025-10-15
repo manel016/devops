@@ -34,7 +34,7 @@ pipeline {
             }
         }
 
-        stage('Tests unitaires') {
+        stage('Tests unitaires' ) {
             steps {
                 echo 'Lancement des tests...'
                 dir('Order') {
