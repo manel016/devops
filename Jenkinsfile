@@ -43,7 +43,7 @@ pipeline {
     steps {
         echo 'Analyse SonarQube en cours...'
         dir('Order') {
-            withSonarQubeEnv('SonarQube') { // Nom du serveur configuré dans Jenkins → Manage Jenkins → SonarQube servers
+            withSonarQubeEnv('Sonarqube') { // Nom du serveur configuré dans Jenkins → Manage Jenkins → SonarQube servers
                 sh """
                     mvn sonar:sonar \
                         -Dsonar.projectKey=sample_project \
