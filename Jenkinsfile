@@ -43,7 +43,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo 'Analyse SonarQube...'
-                dir('Order') {
+                
                     withSonarQubeEnv('sonarqube') {
                          dir('Order') {
                         sh """
@@ -53,7 +53,7 @@ pipeline {
                             -Dsonar.token=${SONAR_TOKEN}
                         """
                          }
-                    }
+                    
                 }
             }
         }
