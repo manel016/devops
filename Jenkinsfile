@@ -7,9 +7,7 @@ pipeline {
         SONAR_HOST_URL = 'http://192.168.33.10:9000/'
         SONAR_TOKEN = credentials('sonar-token') // 🔒 Jeton SonarQube stocké dans Jenkins
     }
-   tools {
-       maven 'maven'
-   }
+ 
     stages {
 
         stage('git') {
