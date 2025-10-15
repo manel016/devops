@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo 'Compilation avec Maven...'
                 dir('Order') {
-                    sh 'mvn clean package'
+                     sh 'mvn clean package'
                 }
             }
         }
