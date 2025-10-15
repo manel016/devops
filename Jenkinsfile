@@ -4,9 +4,12 @@ pipeline {
     environment {
         // Variables d'environnement si besoin
         PROJECT_NAME = 'demo-project'
+        SONAR_HOST_URL = 'http://192.168.33.10:9000/'
         SONAR_TOKEN = credentials('sonar-token') // 🔒 Jeton SonarQube stocké dans Jenkins
     }
-
+   tools {
+       maven 'maven'
+   }
     stages {
 
         stage('git') {
@@ -39,24 +42,21 @@ pipeline {
                 }
             }
         }
-
-        stage('SonarQube Analysis') {
+       stage('SonarQube Analysis') {
             steps {
-                echo 'Analyse SonarQube...'
-                
-                    withSonarQubeEnv('sonarqube') {
-                         dir('Order') {
-                        sh """
-                            mvn clean verify sonar:sonar \
-                            -Dsonar.projectKey=sonarqube \
-                            -Dsonar.projectName="sonarqube" \
-                            -Dsonar.token=${SONAR_TOKEN}
-                        """
-                         }
-                    
-                }
+                echo 'Analyse SonarQube en cours...'
+                 dir('Order'){
+                sh """
+                    mvn sonar:sonar \
+                        -Dsonar.projectKey=sample_project \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.login=${SONAR_TOKEN}
+                """
+                 }
             }
         }
+
+      
 
         stage('Analyse statique (optionnel)') {
             steps {
