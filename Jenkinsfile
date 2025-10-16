@@ -56,7 +56,7 @@ pipeline {
     }
 }
        
-        stage('Build Docker Image') {
+        stage('Build Docker Imagee') {
     steps {
         dir('Order') {
             script {
