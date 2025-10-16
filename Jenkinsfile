@@ -47,7 +47,8 @@ pipeline {
                 sh """
                     mvn sonar:sonar \
                         -Dsonar.projectKey=sample_project \
-                        -Dsonar.ws.timeout=600
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.login=${SONAR_TOKEN}
                 """
             }
         }
