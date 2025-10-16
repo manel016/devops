@@ -76,7 +76,7 @@ pipeline {
         }
       
 
-        stage('Analyse statique') {
+        stage('Annalyse statique') {
             steps {
                 echo 'Analyse statique (ex: Checkstyle, PMD, SonarQube)'
                 // Exemple : sh 'mvn checkstyle:check'
