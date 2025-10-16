@@ -6,15 +6,16 @@ pipeline {
         IMAGE_TAG = 'latest'
         PROJECT_NAME = 'demo-project'
         SONAR_HOST_URL = 'http://192.168.33.10:9000'
-        SONAR_TOKEN = credentials('sonarqube') // Jeton SonarQube stocké dans Jenkins
+        SONAR_TOKEN = credentials('sonarqube') // Jeton SonarQube dans Jenkins (Manage Credentials)
     }
 
     stages {
 
         stage('Git Checkout') {
             steps {
-                echo 'Récupération du code depuis GitHub...'
-                checkout([$class: 'GitSCM',
+                echo '📥 Récupération du code depuis GitHub...'
+                checkout([
+                    $class: 'GitSCM',
                     branches: [[name: '*/manel']],
                     userRemoteConfigs: [[
                         credentialsId: 'githubtoken',
@@ -26,7 +27,7 @@ pipeline {
 
         stage('Compilation du projet') {
             steps {
-                echo 'Compilation avec Maven...'
+                echo '⚙️ Compilation avec Maven...'
                 dir('Order') {
                     sh 'mvn clean package -DskipTests'
                 }
@@ -35,7 +36,7 @@ pipeline {
 
         stage('Tests unitaires') {
             steps {
-                echo 'Exécution des tests unitaires...'
+                echo '🧪 Exécution des tests unitaires...'
                 dir('Order') {
                     sh 'mvn test'
                 }
@@ -44,14 +45,14 @@ pipeline {
 
         stage('Analyse SonarQube') {
             steps {
-                echo 'Analyse SonarQube en cours...'
+                echo '🔍 Analyse SonarQube en cours...'
                 dir('Order') {
                     withSonarQubeEnv('sonarqube') {
                         sh """
                             mvn sonar:sonar \
-                            -Dsonar.projectKey=${PROJECT_NAME} \
-                            -Dsonar.host.url=${SONAR_HOST_URL} \
-                            -Dsonar.token=${SONAR_TOKEN}
+                                -Dsonar.projectKey=${PROJECT_NAME} \
+                                -Dsonar.host.url=${SONAR_HOST_URL} \
+                                -Dsonar.login=${SONAR_TOKEN}
                         """
                     }
                 }
@@ -60,7 +61,7 @@ pipeline {
 
         stage('Build & Push Docker Image') {
             steps {
-                echo 'Construction et push de l’image Docker...'
+                echo '🐳 Construction et push de l’image Docker...'
                 dir('Order') {
                     script {
                         docker.withRegistry('', 'dockerhub-credentials') {
@@ -74,14 +75,14 @@ pipeline {
 
         stage('Lister les images Docker') {
             steps {
-                echo 'Liste des images disponibles sur la machine Jenkins :'
+                echo '📋 Liste des images Docker disponibles sur Jenkins :'
                 sh 'docker images'
             }
         }
 
-        stage('Analyse statique') {
+        stage('Analyse statique (optionnelle)') {
             steps {
-                echo 'Analyse statique (Checkstyle, PMD, etc.)'
+                echo '🧩 Analyse statique (Checkstyle, PMD, etc.)'
                 // Exemple : sh 'mvn checkstyle:check'
             }
         }
@@ -95,7 +96,7 @@ pipeline {
             echo '❌ Le pipeline a échoué.'
         }
         always {
-            echo '📦 Fin du pipeline (success ou échec).'
+            echo '📦 Fin du pipeline (succès ou échec).'
         }
     }
 }
