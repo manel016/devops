@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         // Variables d'environnement si besoin
-         IMAGE_NAME = '95494016manel/magdoulimanel'
+        IMAGE_NAME = '95494016manel/magdoulimanel'
+        IMAGE_TAG = 'latest'
         PROJECT_NAME = 'demo-project'
         SONAR_HOST_URL = 'http://192.168.33.10:9000'
         SONAR_TOKEN = credentials('sonarqube') // 🔒 Jeton SonarQube stocké dans Jenkins
