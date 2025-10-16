@@ -55,15 +55,19 @@ pipeline {
         }
     }
 }
+       
         stage('Build Docker Image') {
-            steps {
-                dir('Order') {
-                    script {
-                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                    }
+    steps {
+        dir('Order') {
+            script {
+                docker.withRegistry('', 'dockerhub-credentials') {
+                    def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    image.push()
                 }
             }
         }
+    }
+}
 
         stage('List Docker Images') {
             steps {
