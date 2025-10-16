@@ -64,14 +64,13 @@ pipeline {
                 echo '🐳 Construction et push de l’image Docker...'
                 dir('Order') {
                     script {
-                        docker.withRegistry('', 'dockerhub-credentials') {
                             def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                            image.push()
+                           
                         }
                     }
                 }
             }
-        }
+        
 
         stage('Lister les images Docker') {
             steps {
