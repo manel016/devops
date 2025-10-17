@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent any    
 
     environment {
         IMAGE_NAME = '95494016manel/magdoulimanel'
@@ -13,7 +13,7 @@ pipeline {
 
         stage('Git Checkout') {
             steps {
-                echo '📥 Récupération du code depuis GitHub...'
+                echo 'Récupération du code depuis GitHub...'
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: '*/manel']],
