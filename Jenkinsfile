@@ -1,10 +1,5 @@
 pipeline {
-    agent any
-
-    
-    triggers {
-        githubPush()
-    }
+    agent any  
 
     stages {
         stage('Récupération du code') {
