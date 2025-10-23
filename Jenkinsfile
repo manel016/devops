@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    
+    triggers {
+        githubPush()
+    }
+
     stages {
         stage('Récupération du code') {
             steps {
@@ -18,7 +23,3 @@ pipeline {
         }
     }
 }
-
-
-
-
