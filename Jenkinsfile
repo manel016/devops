@@ -1,6 +1,11 @@
 pipeline {
     agent any  
 
+    tools {
+        
+        sonarqubeScanner 'sonarqube-scanner'
+    }
+
     stages {
         stage('Récupération du code') {
             steps {
@@ -13,6 +18,26 @@ pipeline {
                 script {
                     def now = new Date()
                     echo "Date et heure actuelles : ${now}"
+                }
+            }
+        }
+
+        stage('MVN CLEAN') {
+            steps {
+                sh 'mvn clean'
+            }
+        }
+
+        stage('MVN COMPILE') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+
+        stage('Tests et analyse SonarQube') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
